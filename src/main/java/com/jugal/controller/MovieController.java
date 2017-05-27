@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,7 @@ import io.swagger.annotations.Api;
 @RequestMapping("/movie")
 public class MovieController {
 
-	@RequestMapping(value = "json/{movieName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/json/{movieName}", method = RequestMethod.GET)
 	public @ResponseBody Movie getMovieInJSON(@PathVariable String movieName) {
 
 		Movie movie = new Movie();
@@ -32,7 +33,7 @@ public class MovieController {
 
 	}
 
-	@RequestMapping(value = "xml/{filmName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/xml/{filmName}", method = RequestMethod.GET)
 	public @ResponseBody Film getFilmInXML(@PathVariable String filmName) {
 
 		Film film = new Film();
@@ -44,5 +45,18 @@ public class MovieController {
 
 		return film;
 
+	}
+	
+	@RequestMapping(value = "/post", method = RequestMethod.POST)
+	public @ResponseBody Film getFilmInXMLa(@RequestBody String str) {
+
+		Film film = new Film();
+		film.setName(str);
+		film.setDirector("director");
+		film.setActor("actor");
+		film.setProducer("producer");
+		film.setReleaseDate(new Date());
+
+		return film;
 	}
 }
